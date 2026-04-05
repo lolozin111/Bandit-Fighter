@@ -1,0 +1,51 @@
+local AIDataTable = require(script.Parent.AIDataTable)
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local NPC = script.Parent
+local NPCHumanoid = NPC.Humanoid
+local NPCRoot = NPC.HumanoidRootPart
+local ogorientation = NPCRoot.Orientation
+local distance = 99999999999999
+local SessionData = require(game.ServerScriptService.RAM)
+task.wait(2)
+
+--attack behavior
+
+while true do --almost working, just make it that whenever there is no player nearby to reset the NPC position back to its original
+	
+	if NPCHumanoid.Health <= 0 then
+		local whokilled = AIDataTable.membersattacking[1]
+		local key = tostring(whokilled.UserId)
+		if whokilled ~= nil then
+			print(SessionData)
+			SessionData[key].Souls += 50
+			SessionData[key].Exp += 70
+			print(SessionData[key].Souls)
+			print("Player "..whokilled.Name.." killed enemy")
+		end
+		script.Parent:Destroy()
+		
+	end
+	
+	
+	if AIDataTable.currenttarget ~= nil then
+		distance = AIDataTable.currenttarget:DistanceFromCharacter(NPCRoot.Position)
+		--print("distance is: "..distance)
+		
+	end
+	
+	if distance <= AIDataTable.AttackRange and AIDataTable.currenttarget.Character ~= nil and NPCHumanoid.Health > 0  then
+		print(AIDataTable.currenttarget)
+		AIDataTable.currenttarget.Character.Humanoid.Health -=  AIDataTable.AttackDamage
+		 SessionData[tostring(AIDataTable.currenttarget.UserId)].startbattle = time()
+		 print("attacking")
+		
+		task.wait(AIDataTable.AttackSpeed)
+		
+	end
+	
+	
+	
+	
+	RunService.Heartbeat:Wait()
+end
