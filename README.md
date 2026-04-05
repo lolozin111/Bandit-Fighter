@@ -2,10 +2,9 @@
 Bandit Fighter
 A Roblox RPG built in Lua. Players fight NPC bandits across themed zones, earn EXP and Souls to upgrade skills, and take on bosses for loot drops.
 
-Still in active development — core systems are working, more content coming.
+Still in active development, yet core systems are working, more content coming.
 
 
-What it is
 A progression-based RPG where players:
 
 Fight NPC bandits and earn EXP to level up
@@ -41,9 +40,9 @@ Roblox Studio
 
 Repo Structure
 bandit-fighter/
-├── ServerScriptService/      # Server-side logic (combat, data)
-├── StarterPlayerScripts/     # Client-side scripts (UI, input)
-└── ReplicatedStorage/        # Shared modules
+- ServerScriptService/      # Server-side logic (combat, data)
+- StarterPlayerScripts/     # Client-side scripts (UI, input)
+-  ReplicatedStorage/        # Shared modules
 
 About
 Built by Carlos Sales — self-taught dev based in Orlando, FL. Currently learning JavaScript, HTML, and Git while studying at Valencia College.
