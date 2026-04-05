@@ -1,0 +1,76 @@
+local ItemData = {
+	-- pets only have  Attack, AttackSpeed, and Criticals modifier
+	["1"] = {
+		
+		Name = "TestPet",
+		Stats = {
+			Attack = 1, --multiplier
+			AttackSpeed = 1,
+			Critical = 1,
+			
+			
+		},
+		Logo = 0,
+		ItemClass = "Pet",
+		Model = game.Workspace:WaitForChild("TestPet"),
+		stackable = false,
+		
+	},
+	["2"] = {
+
+		Name = "TestPet2",
+		Stats = {
+			Attack = 4, 
+			AttackSpeed = 1,
+			Critical = 1,
+
+
+		},
+		Logo = 0,
+		ItemClass = "Pet",
+		Model = game.Workspace:WaitForChild("TestPet2"),
+		stackable = false,
+	},
+	["3"] = {
+		
+		Name = "Potion1",
+		
+		Stats = {
+			
+			Duration = 50,--seconds
+			
+			Attack = 2,
+			AttackSpeed = 1,
+			Critical = 1,
+			
+			
+		},
+		Logo = 0,
+		ItemClass = "Potion",
+		stackable = true,
+		Description = "Very good potion yum yum"
+		
+	},
+	["4"] = {
+		Name = "Potion2",
+
+		Stats = {
+
+			Duration = 50,
+
+			Attack = 2,
+			AttackSpeed = 1,
+			Critical = 1,
+
+
+		},
+		Logo = 0,
+		ItemClass = "Potion",
+		stackable = true,
+		Description = "Potion yes yes "
+		
+	}
+	
+}
+
+return ItemData
