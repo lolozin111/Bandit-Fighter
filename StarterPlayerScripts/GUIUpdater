@@ -1,0 +1,56 @@
+
+local player = game.Players.LocalPlayer
+local key = tostring(player.UserId)
+local RunService = game:GetService("RunService")
+local GetSessionData = game.ReplicatedStorage.RemoteFunctions.GetSessionData
+local SessionData = GetSessionData:InvokeServer()
+
+game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Health, false)
+repeat task.wait() until player.Character
+task.spawn(function()
+	while true do
+		
+		SessionData = GetSessionData:InvokeServer()
+		
+		local buffFrame = game.Players.LocalPlayer.PlayerGui.ScreenGui.BuffFrame
+		
+		for i, v in pairs(buffFrame:GetChildren()) do
+			if v:IsA("Frame") then
+				print(i)
+			end
+		end
+		task.wait(0.25)
+	end
+	
+	
+end)
+repeat task.wait() until SessionData
+print("This is sessiondata: ", SessionData)
+RunService.Heartbeat:Connect(function()
+
+	
+	local playerGui = player.PlayerGui:WaitForChild("ScreenGui")
+	--health
+	playerGui:WaitForChild("Health").HP.Text = math.round(player.Character.Humanoid.Health).."/"..math.round(player.Character.Humanoid.MaxHealth)
+	playerGui:WaitForChild("Health").HealthBar.Size  =  UDim2.new((player.Character.Humanoid.Health/player.Character.Humanoid.MaxHealth)*0.281,0,0.046,0)
+	
+	
+	
+	--stamina
+	playerGui:WaitForChild("Energy").EnergyBar.Size  =  UDim2.new((SessionData.Stamina/SessionData.MaxStamina)*0.334,0,0.046,0)
+	playerGui:WaitForChild("Energy").Stamina.Text = math.round(SessionData.Stamina).."/"..math.round(SessionData.MaxStamina)
+	
+	--EXP
+	playerGui:WaitForChild("EXPbar").ExpBar.Size = UDim2.new((SessionData.Exp/SessionData.MaxExp*0.0311),0,0.012,0)
+	playerGui:WaitForChild("EXPbar").CurrentExp.Text = math.round(SessionData.Exp).."/"..math.round(SessionData.MaxExp)
+	
+	--Souls
+	playerGui:WaitForChild("Souls").TextLabel.Text = math.round(SessionData.Souls)
+	
+	
+	
+	
+	
+	
+	
+end)
