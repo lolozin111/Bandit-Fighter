@@ -1,0 +1,63 @@
+local Players = game:GetService("Players")
+local localplayer = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
+local PlayerAttack = game.ReplicatedStorage.RemoteEvents:WaitForChild("PlayerAttack")
+local GetSessionData = game.ReplicatedStorage.RemoteFunctions.GetSessionData
+local SessionData = GetSessionData:InvokeServer()
+local StaminaUpdate = game.ReplicatedStorage.RemoteEvents.StaminaUpdate
+local ExpUpdate = game.ReplicatedStorage.RemoteEvents.ExpUpdate
+print(localplayer)
+
+
+--value update
+task.spawn(function()
+	while true do
+		
+		SessionData = GetSessionData:InvokeServer()
+
+		StaminaUpdate:FireServer()
+		ExpUpdate:FireServer()
+		task.wait(1)
+		
+	end
+	
+	
+end)
+print("hello")
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+	if gameProcessedEvent then return end
+
+	
+	
+	if input.UserInputType == Enum.UserInputType.MouseButton1  then
+		print("hi")
+		
+		--come back later to fix this
+		
+		PlayerAttack:FireServer(localplayer, 10)
+		
+	end
+	
+	
+	
+	if input.KeyCode == Enum.KeyCode.LeftControl then
+		print("running started")
+		game.ReplicatedStorage.RemoteEvents.Run:FireServer()
+
+	end
+	
+end)
+
+
+local StopRun = game.ReplicatedStorage.RemoteEvents.StopRun
+UserInputService.InputEnded:Connect(function(input, gameProcessedEvent)
+	
+	if gameProcessedEvent then return end
+	
+	if input.KeyCode == Enum.KeyCode.LeftControl then
+		game.ReplicatedStorage.RemoteEvents.StopRun:FireServer()
+		
+	end
+	
+end)
